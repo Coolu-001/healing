@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>留白打卡 | 给自己留点空</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- 导航栏 -->
+    <nav class="fixed top-0 w-full bg-white bg-opacity-90 backdrop-filter backdrop-blur-sm z-50 shadow-sm">
+        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+            <a href="index.html" class="text-2xl font-light text-gray-700">给自己留点空</a>
+            <div class="hidden md:flex space-x-8">
+                <a href="index.html" class="text-gray-600 hover:text-gray-900 transition-colors">首页</a>
+                <a href="diary.html" class="text-gray-600 hover:text-gray-900 transition-colors">情绪日记</a>
+                <a href="treehole.html" class="text-gray-600 hover:text-gray-900 transition-colors">AI树洞</a>
+                <a href="checkin.html" class="text-gray-900 font-medium hover:text-gray-900 transition-colors">留白打卡</a>
+            </div>
+            <button id="mobile-menu-button" class="md:hidden text-gray-600">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                </svg>
+            </button>
+        </div>
+        <!-- 移动端菜单 -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white">
+            <div class="container mx-auto px-4 py-2 flex flex-col space-y-3">
+                <a href="index.html" class="text-gray-600 hover:text-gray-900 transition-colors py-2">首页</a>
+                <a href="diary.html" class="text-gray-600 hover:text-gray-900 transition-colors py-2">情绪日记</a>
+                <a href="treehole.html" class="text-gray-600 hover:text-gray-900 transition-colors py-2">AI树洞</a>
+                <a href="checkin.html" class="text-gray-900 font-medium hover:text-gray-900 transition-colors py-2">留白打卡</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 主要内容 -->
+    <main class="pt-24 pb-16">
+        <!-- 页面标题 -->
+        <section class="container mx-auto px-4 mb-12">
+            <h1 class="text-3xl md:text-4xl font-light text-gray-800 mb-4">留白打卡</h1>
+            <p class="text-gray-600 max-w-2xl">
+                每日静心打卡，培养正念习惯，让内心的宁静成为日常。
+            </p>
+        </section>
+
+        <!-- 打卡区域 -->
+        <section class="container mx-auto px-4 mb-20">
+            <div class="max-w-3xl mx-auto">
+                <div class="bg-white rounded-lg shadow-sm p-6 md:p-8">
+                    <div class="text-center mb-8">
+                        <img src="images/placeholder.svg" 
+                             alt="静心冥想" 
+                             class="w-24 h-24 mx-auto mb-4">
+                        <h2 class="text-2xl font-light text-gray-800 mb-2">今日静心打卡</h2>
+                        <p id="checkin-date" class="text-gray-500"></p>
+                    </div>
+
+                    <!-- 打卡状态 -->
+                    <div id="checkin-status" class="text-center mb-8">
+                        <!-- 未打卡状态 -->
+                        <div id="not-checked-in" class="hidden">
+                            <p class="text-gray-600 mb-6">今天还没有进行静心练习，完成后点击下方按钮打卡。</p>
+                            <button id="checkin-button" class="bg-gray-800 text-white px-8 py-3 rounded-full hover:bg-gray-700 transition-colors">
+                                完成静心打卡
+                            </button>
+                        </div>
+                        
+                        <!-- 已打卡状态 -->
+                        <div id="already-checked-in" class="hidden">
+                            <div class="w-16 h-16 rounded-full bg-green-100 flex items-center justify-center mx-auto mb-4">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                                </svg>
+                            </div>
+                            <h3 class="text-xl font-medium text-gray-800 mb-2">今日已打卡</h3>
+                            <p class="text-gray-500" id="checkin-time"></p>
+                        </div>
+                    </div>
+
+                    <!-- 打卡统计 -->
+                    <div class="border-t border-gray-100 pt-8">
+                        <h3 class="text-lg font-medium text-gray-800 mb-4 text-center">打卡统计</h3>
+                        <div class="grid grid-cols-3 gap-4 text-center">
+                            <div class="bg-gray-50 rounded-lg p-4">
+                                <p class="text-sm text-gray-500 mb-1">连续打卡</p>
+                                <p id="streak-count" class="text-2xl font-light text-gray-800">0</p>
+                                <p class="text-xs text-gray-500">天</p>
+                            </div>
+                            <div class="bg-gray-50 rounded-lg p-4">
+                                <p class="text-sm text-gray-500 mb-1">本月打卡</p>
+                                <p id="month-count" class="text-2xl font-light text-gray-800">0</p>
+                                <p class="text-xs text-gray-500">天</p>
+                            </div>
+                            <div class="bg-gray-50 rounded-lg p-4">
+                                <p class="text-sm text-gray-500 mb-1">总计打卡</p>
+                                <p id="total-count" class="text-2xl font-light text-gray-800">0</p>
+                                <p class="text-xs text-gray-500">天</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 静心提示 -->
+                <div class="mt-6 bg-gray-50 rounded-lg p-6">
+                    <h3 class="text-lg font-medium text-gray-800 mb-4">今日静心提示</h3>
+                    <p class="text-gray-600 mb-4">
+                        找一个安静的地方，坐下或躺下，闭上眼睛，关注你的呼吸。
+                        感受空气进入和离开你的身体，让思绪自然流动，不做任何评判。
+                        每天坚持5-10分钟，你会发现内心变得更加平静。
+                    </p>
+                    <div class="flex justify-center">
+                        <button id="start-meditation" class="border border-gray-300 text-gray-700 px-6 py-2 rounded-full hover:bg-gray-100 transition-colors flex items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                            </svg>
+                            开始5分钟冥想
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 书籍金句 -->
+        <section id="quotes" class="container mx-auto px-4 mb-16">
+            <h2 class="text-2xl font-light text-gray-800 mb-8 text-center">书籍金句</h2>
+            <div class="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- 金句卡片 -->
+                <div class="bg-white rounded-lg shadow-sm p-6 hover:shadow-md transition-shadow">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-gray-300 mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M14 10h4.764a2 2 0 011.789 2.894l-3.5 7A2 2 0 0115.263 21h-4.017c-.163 0-.326-.02-.485-.06L7 20m7-10V5a2 2 0 00-2-2h-.095c-.5 0-.905.405-.905.905 0 .714-.211 1.412-.608 2.006L7 11v9m7-10h-2M7 20H5a2 2 0 01-2-2v-6a2 2 0 012-2h2.5" />
+                    </svg>
+                    <p class="text-gray-700 italic mb-4">
+                        "慢慢来，不是拖延，而是给自己足够的时间和空间，让事情自然地发展和完成。"
+                    </p>
+                    <p class="text-right text-gray-500 text-sm">— 《给自己留点空》</p>
+                </div>
+                
+                <div class="bg-white rounded-lg shadow-sm p-6 hover:shadow-md transition-shadow">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-gray-300 mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M14 10h4.764a2 2 0 011.789 2.894l-3.5 7A2 2 0 0115.263 21h-4.017c-.163 0-.326-.02-.485-.06L7 20m7-10V5a2 2 0 00-2-2h-.095c-.5 0-.905.405-.905.905 0 .714-.211 1.412-.608 2.006L7 11v9m7-10h-2M7 20H5a2 2 0 01-2-2v-6a2 2 0 012-2h2.5" />
+                    </svg>
+                    <p class="text-gray-700 italic mb-4">
+                        "内心的平静不是来自外界的安宁，而是来自于我们对内心波动的接纳和理解。"
+                    </p>
+                    <p class="text-right text-gray-500 text-sm">— 《给自己留点空》</p>
+                </div>
+                
+                <div class="bg-white rounded-lg shadow-sm p-6 hover:shadow-md transition-shadow">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-gray-300 mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M14 10h4.764a2 2 0 011.789 2.894l-3.5 7A2 2 0 0115.263 21h-4.017c-.163 0-.326-.02-.485-.06L7 20m7-10V5a2 2 0 00-2-2h-.095c-.5 0-.905.405-.905.905 0 .714-.211 1.412-.608 2.006L7 11v9m7-10h-2M7 20H5a2 2 0 01-2-2v-6a2 2 0 012-2h2.5" />
+                    </svg>
+                    <p class="text-gray-700 italic mb-4">
+                        "有时候，什么都不做也是一种修行。给自己一点空白的时间，让心灵得以休息和恢复。"
+                    </p>
+                    <p class="text-right text-gray-500 text-sm">— 《给自己留点空》</p>
+                </div>
+                
+                <div class="bg-white rounded-lg shadow-sm p-6 hover:shadow-md transition-shadow">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-gray-300 mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M14 10h4.764a2 2 0 011.789 2.894l-3.5 7A2 2 0 0115.263 21h-4.017c-.163 0-.326-.02-.485-.06L7 20m7-10V5a2 2 0 00-2-2h-.095c-.5 0-.905.405-.905.905 0 .714-.211 1.412-.608 2.006L7 11v9m7-10h-2M7 20H5a2 2 0 01-2-2v-6a2 2 0 012-2h2.5" />
+                    </svg>
+                    <p class="text-gray-700 italic mb-4">
+                        "真正的成长不是不断地追求更多，而是学会在适当的时候停下来，审视自己的内心。"
+                    </p>
+                    <p class="text-right text-gray-500 text-sm">— 《给自己留点空》</p>
+                </div>
+                
+                <div class="bg-white rounded-lg shadow-sm p-6 hover:shadow-md transition-shadow">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-gray-300 mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M14 10h4.764a2 2 0 011.789 2.894l-3.5 7A2 2 0 0115.263 21h-4.017c-.163 0-.326-.02-.485-.06L7 20m7-10V5a2 2 0 00-2-2h-.095c-.5 0-.905.405-.905.905 0 .714-.211 1.412-.608 2.006L7 11v9m7-10h-2M7 20H5a2 2 0 01-2-2v-6a2 2 0 012-2h2.5" />
+                    </svg>
+                    <p class="text-gray-700 italic mb-4">
+                        "情绪没有对错，它们只是我们内心的信使，告诉我们现在的状态。学会倾听它们，而不是压抑它们。"
+                    </p>
+                    <p class="text-right text-gray-500 text-sm">— 《给自己留点空》</p>
+                </div>
+                
+                <div class="bg-white rounded-lg shadow-sm p-6 hover:shadow-md transition-shadow">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-gray-300 mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M14 10h4.764a2 2 0 011.789 2.894l-3.5 7A2 2 0 0115.263 21h-4.017c-.163 0-.326-.02-.485-.06L7 20m7-10V5a2 2 0 00-2-2h-.095c-.5 0-.905.405-.905.905 0 .714-.211 1.412-.608 2.006L7 11v9m7-10h-2M7 20H5a2 2 0 01-2-2v-6a2 2 0 012-2h2.5" />
+                    </svg>
+                    <p class="text-gray-700 italic mb-4">
+                        "生活不是一场竞赛，而是一段旅程。重要的不是速度，而是我们如何体验和感受这段旅程。"
+                    </p>
+                    <p class="text-right text-gray-500 text-sm">— 《给自己留点空》</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- 页脚 -->
+    <footer class="bg-white py-12 border-t border-gray-100">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-6 md:mb-0">
+                    <h3 class="text-2xl font-light text-gray-700 mb-2">给自己留点空</h3>
+                    <p class="text-gray-500">找回内心的平静</p>
+                </div>
+                <div class="flex space-x-8">
+                    <a href="index.html" class="text-gray-500 hover:text-gray-800 transition-colors">首页</a>
+                    <a href="diary.html" class="text-gray-500 hover:text-gray-800 transition-colors">情绪日记</a>
+                    <a href="treehole.html" class="text-gray-500 hover:text-gray-800 transition-colors">AI树洞</a>
+                    <a href="checkin.html" class="text-gray-500 hover:text-gray-800 transition-colors">留白打卡</a>
+                    <a href="config.html" class="text-gray-500 hover:text-gray-800 transition-colors">AI配置</a>
+                </div>
+            </div>
+            <div class="border-t border-gray-100 mt-8 pt-8 text-center">
+                <p class="text-gray-500">&copy; 2025 给自己留点空. 保留所有权利.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- 冥想模态框 -->
+    <div id="meditation-modal" class="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center hidden">
+        <div class="bg-white rounded-lg p-6 max-w-md w-full mx-4">
+            <div class="text-center">
+                <h3 class="text-xl font-light text-gray-800 mb-4">5分钟冥想</h3>
+                <div id="meditation-timer" class="text-4xl font-light text-gray-800 mb-6">5:00</div>
+                <div class="w-full bg-gray-200 rounded-full h-2 mb-6">
+                    <div id="meditation-progress" class="bg-gray-800 h-2 rounded-full" style="width: 0%"></div>
+                </div>
+                <div class="flex justify-center space-x-4">
+                    <button id="start-timer" class="bg-gray-800 text-white px-6 py-2 rounded-full hover:bg-gray-700 transition-colors">
+                        开始
+                    </button>
+                    <button id="close-modal" class="border border-gray-300 text-gray-700 px-6 py-2 rounded-full hover:bg-gray-50 transition-colors">
+                        关闭
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 移动端菜单
+        document.getElementById('mobile-menu-button').addEventListener('click', function() {
+            const mobileMenu = document.getElementById('mobile-menu');
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // 设置当前日期
+        function setCurrentDate() {
+            const now = new Date();
+            const options = { year: 'numeric', month: 'long', day: 'numeric', weekday: 'long' };
+            document.getElementById('checkin-date').textContent = now.toLocaleDateString('zh-CN', options);
+        }
+
+        // 初始化打卡状态
+        function initCheckinStatus() {
+            const today = new Date().toISOString().split('T')[0];
+            const checkins = JSON.parse(localStorage.getItem('checkins') || '{}');
+            
+            if (checkins[today]) {
+                // 已打卡
+                document.getElementById('not-checked-in').classList.add('hidden');
+                document.getElementById('already-checked-in').classList.remove('hidden');
+                
+                // 显示打卡时间
+                const checkinTime = new Date(checkins[today].timestamp);
+                document.getElementById('checkin-time').textContent = `打卡时间：${checkinTime.toLocaleTimeString('zh-CN', { hour: '2-digit', minute: '2-digit' })}`;
+            } else {
+                // 未打卡
+                document.getElementById('not-checked-in').classList.remove('hidden');
+                document.getElementById('already-checked-in').classList.add('hidden');
+            }
+            
+            // 更新统计数据
+            updateStatistics(checkins);
+        }
+
+        // 更新统计数据
+        function updateStatistics(checkins) {
+            const today = new Date().toISOString().split('T')[0];
+            const thisMonth = new Date().getMonth();
+            const thisYear = new Date().getFullYear();
+            
+            // 计算连续打卡天数
+            let streak = 0;
+            let currentDate = new Date();
+            
+            while (true) {
+                const dateString = currentDate.toISOString().split('T')[0];
+                if (checkins[dateString]) {
+                    streak++;
+                    currentDate.setDate(currentDate.getDate() - 1);
+                } else {
+                    break;
+                }
+            }
+            
+            // 计算本月打卡天数
+            let monthCount = 0;
+            Object.keys(checkins).forEach(date => {
+                const checkinDate = new Date(date);
+                if (checkinDate.getMonth() === thisMonth && checkinDate.getFullYear() === thisYear) {
+                    monthCount++;
+                }
+            });
+            
+            // 计算总打卡天数
+            const totalCount = Object.keys(checkins).length;
+            
+            // 更新显示
+            document.getElementById('streak-count').textContent = streak;
+            document.getElementById('month-count').textContent = monthCount;
+            document.getElementById('total-count').textContent = totalCount;
+        }
+
+        // 打卡功能
+        document.getElementById('checkin-button').addEventListener('click', function() {
+            const today = new Date().toISOString().split('T')[0];
+            const checkins = JSON.parse(localStorage.getItem('checkins') || '{}');
+            
+            // 记录打卡
+            checkins[today] = {
+                timestamp: new Date().toISOString()
+            };
+            
+            // 保存到localStorage
+            localStorage.setItem('checkins', JSON.stringify(checkins));
+            
+            // 更新打卡状态
+            initCheckinStatus();
+            
+            // 显示成功提示
+            const checkinBtn = this;
+            const originalText = checkinBtn.textContent;
+            checkinBtn.textContent = '打卡成功';
+            checkinBtn.disabled = true;
+            checkinBtn.classList.add('bg-green-600');
+            
+            setTimeout(() => {
+                checkinBtn.textContent = originalText;
+                checkinBtn.disabled = false;
+                checkinBtn.classList.remove('bg-green-600');
+            }, 2000);
+        });
+
+        // 冥想功能
+        let meditationTimer;
+        let meditationSeconds = 300; // 5分钟
+        
+        document.getElementById('start-meditation').addEventListener('click', function() {
+            document.getElementById('meditation-modal').classList.remove('hidden');
+            resetMeditationTimer();
+        });
+        
+        document.getElementById('close-modal').addEventListener('click', function() {
+            document.getElementById('meditation-modal').classList.add('hidden');
+            clearInterval(meditationTimer);
+        });
+        
+        document.getElementById('start-timer').addEventListener('click', function() {
+            const startBtn = this;
+            
+            if (startBtn.textContent === '开始') {
+                // 开始计时
+                startBtn.textContent = '暂停';
+                startMeditationTimer();
+            } else if (startBtn.textContent === '暂停') {
+                // 暂停计时
+                startBtn.textContent = '继续';
+                clearInterval(meditationTimer);
+            } else if (startBtn.textContent === '继续') {
+                // 继续计时
+                startBtn.textContent = '暂停';
+                startMeditationTimer();
+            }
+        });
+        
+        function startMeditationTimer() {
+            meditationTimer = setInterval(() => {
+                meditationSeconds--;
+                
+                if (meditationSeconds <= 0) {
+                    clearInterval(meditationTimer);
+                    document.getElementById('start-timer').textContent = '完成';
+                    document.getElementById('start-timer').disabled = true;
+                    
+                    // 自动打卡
+                    const today = new Date().toISOString().split('T')[0];
+                    const checkins = JSON.parse(localStorage.getItem('checkins') || '{}');
+                    
+                    checkins[today] = {
+                        timestamp: new Date().toISOString()
+                    };
+                    
+                    localStorage.setItem('checkins', JSON.stringify(checkins));
+                    
+                    // 3秒后关闭模态框
+                    setTimeout(() => {
+                        document.getElementById('meditation-modal').classList.add('hidden');
+                        initCheckinStatus();
+                    }, 3000);
+                }
+                
+                updateMeditationDisplay();
+            }, 1000);
+        }
+        
+        function updateMeditationDisplay() {
+            const minutes = Math.floor(meditationSeconds / 60);
+            const seconds = meditationSeconds % 60;
+            const timeString = `${minutes}:${seconds.toString().padStart(2, '0')}`;
+            
+            document.getElementById('meditation-timer').textContent = timeString;
+            
+            // 更新进度条
+            const progress = ((300 - meditationSeconds) / 300) * 100;
+            document.getElementById('meditation-progress').style.width = `${progress}%`;
+        }
+        
+        function resetMeditationTimer() {
+            clearInterval(meditationTimer);
+            meditationSeconds = 300;
+            updateMeditationDisplay();
+            
+            const startBtn = document.getElementById('start-timer');
+            startBtn.textContent = '开始';
+            startBtn.disabled = false;
+        }
+
+        // 页面加载完成后初始化
+        window.addEventListener('DOMContentLoaded', function() {
+            setCurrentDate();
+            initCheckinStatus();
+        });
+    </script>
+</body>
+</html>

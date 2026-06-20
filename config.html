@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI配置 - 给自己留点空</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome -->
+    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#D4C1A8',
+                        secondary: '#E8DED1',
+                        accent: '#B8A590',
+                        light: '#F7F4F0',
+                        dark: '#6C635C'
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <style type="text/tailwindcss">
+        @layer utilities {
+            .content-auto {
+                content-visibility: auto;
+            }
+            .bg-pattern {
+                background-color: #F7F4F0;
+                background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23D4C1A8' fill-opacity='0.05'%3E%3Ccircle cx='30' cy='30' r='2'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+            }
+            .transition-all-300 {
+                transition: all 0.3s ease;
+            }
+        }
+    </style>
+</head>
+<body class="bg-pattern min-h-screen font-sans text-dark">
+    <!-- 导航栏 -->
+    <nav class="bg-white bg-opacity-90 backdrop-blur-sm shadow-sm fixed w-full z-10">
+        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+            <div class="flex items-center">
+                <a href="index.html" class="text-2xl font-light tracking-wider text-dark">
+                    <span class="font-normal text-primary">给自己</span>留点空
+                </a>
+            </div>
+            
+            <!-- 桌面端菜单 -->
+            <div class="hidden md:flex items-center space-x-8">
+                <a href="index.html" class="text-gray-600 hover:text-primary transition-all-300">首页</a>
+                <a href="diary.html" class="text-gray-600 hover:text-primary transition-all-300">情绪日记</a>
+                <a href="treehole.html" class="text-gray-600 hover:text-primary transition-all-300">AI树洞</a>
+                <a href="checkin.html" class="text-gray-600 hover:text-primary transition-all-300">留白打卡</a>
+                <a href="config.html" class="text-primary border-b-2 border-primary pb-1">AI配置</a>
+            </div>
+            
+            <!-- 移动端菜单按钮 -->
+            <div class="md:hidden">
+                <button id="mobile-menu-button" class="text-gray-600 hover:text-primary">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                    </svg>
+                </button>
+            </div>
+        </div>
+        
+        <!-- 移动端菜单 -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white shadow-lg absolute w-full">
+            <div class="container mx-auto px-4 py-2 flex flex-col space-y-3">
+                <a href="index.html" class="py-2 text-gray-600 hover:text-primary transition-all-300">首页</a>
+                <a href="diary.html" class="py-2 text-gray-600 hover:text-primary transition-all-300">情绪日记</a>
+                <a href="treehole.html" class="py-2 text-gray-600 hover:text-primary transition-all-300">AI树洞</a>
+                <a href="checkin.html" class="py-2 text-gray-600 hover:text-primary transition-all-300">留白打卡</a>
+                <a href="config.html" class="py-2 text-primary">AI配置</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 主要内容 -->
+    <main class="container mx-auto px-4 pt-24 pb-16">
+        <div class="max-w-2xl mx-auto">
+            <!-- 页面标题 -->
+            <div class="text-center mb-12">
+                <h1 class="text-3xl md:text-4xl font-light text-dark mb-4">AI配置</h1>
+                <p class="text-gray-500">配置豆包AI API密钥，启用完整的AI树洞功能</p>
+            </div>
+            
+            <!-- 配置卡片 -->
+            <div class="bg-white rounded-xl shadow-sm p-6 md:p-8 mb-8">
+                <div class="mb-6">
+                    <h2 class="text-xl font-medium text-dark mb-3">API密钥设置</h2>
+                    <p class="text-gray-500 mb-4">
+                        要使用完整的AI树洞功能，你需要配置豆包AI的API密钥。
+                        如果你没有API密钥，可以跳过此设置，系统将使用本地模式继续提供服务。
+                    </p>
+                    
+                    <form id="api-config-form" class="space-y-4">
+                        <div>
+                            <label for="api-key" class="block text-sm font-medium text-gray-700 mb-1">API Key</label>
+                            <input type="text" id="api-key" name="apiKey" 
+                                class="w-full px-4 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition-all-300"
+                                placeholder="请输入豆包AI的API Key">
+                        </div>
+                        
+                        <div>
+                            <label for="secret-key" class="block text-sm font-medium text-gray-700 mb-1">Secret Key</label>
+                            <input type="text" id="secret-key" name="secretKey" 
+                                class="w-full px-4 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition-all-300"
+                                placeholder="请输入豆包AI的Secret Key">
+                        </div>
+                        
+                        <div>
+                            <label for="model-select" class="block text-sm font-medium text-gray-700 mb-1">AI模型</label>
+                            <select id="model-select" name="model" 
+                                class="w-full px-4 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition-all-300">
+                                <option value="ERNIE-Bot">ERNIE-Bot</option>
+                                <option value="ERNIE-Bot-4">ERNIE-Bot-4</option>
+                                <option value="ERNIE-Bot-turbo">ERNIE-Bot-turbo</option>
+                            </select>
+                        </div>
+                        
+                        <div class="pt-2">
+                            <button type="submit" 
+                                class="w-full bg-primary hover:bg-opacity-90 text-white py-2 px-6 rounded-lg transition-all-300 flex items-center justify-center">
+                                <i class="fa fa-save mr-2"></i> 保存配置
+                            </button>
+                        </div>
+                    </form>
+                </div>
+                
+                <div class="border-t border-gray-100 pt-6">
+                    <h3 class="text-lg font-medium text-dark mb-3">当前状态</h3>
+                    <div id="current-status" class="bg-light rounded-lg p-4">
+                        <p class="text-gray-600">
+                            <i class="fa fa-info-circle text-primary mr-2"></i>
+                            尚未配置API密钥，当前使用本地模式。
+                        </p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 帮助卡片 -->
+            <div class="bg-white rounded-xl shadow-sm p-6 md:p-8">
+                <h2 class="text-xl font-medium text-dark mb-3">如何获取API密钥？</h2>
+                <div class="space-y-4 text-gray-600">
+                    <div class="flex items-start">
+                        <div class="bg-primary bg-opacity-10 rounded-full p-2 mr-4 flex-shrink-0">
+                            <span class="text-primary font-medium">1</span>
+                        </div>
+                        <p>访问<a href="https://cloud.baidu.com/" target="_blank" class="text-primary hover:underline">百度智能云</a>官网并注册账号</p>
+                    </div>
+                    <div class="flex items-start">
+                        <div class="bg-primary bg-opacity-10 rounded-full p-2 mr-4 flex-shrink-0">
+                            <span class="text-primary font-medium">2</span>
+                        </div>
+                        <p>在控制台中找到"文心一言"或"ERNIE-Bot"服务</p>
+                    </div>
+                    <div class="flex items-start">
+                        <div class="bg-primary bg-opacity-10 rounded-full p-2 mr-4 flex-shrink-0">
+                            <span class="text-primary font-medium">3</span>
+                        </div>
+                        <p>申请API密钥并获取API Key和Secret Key</p>
+                    </div>
+                    <div class="flex items-start">
+                        <div class="bg-primary bg-opacity-10 rounded-full p-2 mr-4 flex-shrink-0">
+                            <span class="text-primary font-medium">4</span>
+                        </div>
+                        <p>将获取的密钥填入上方表单并保存</p>
+                    </div>
+                </div>
+                
+                <div class="mt-6 bg-yellow-50 border-l-4 border-yellow-400 p-4 rounded">
+                    <div class="flex">
+                        <div class="flex-shrink-0">
+                            <i class="fa fa-exclamation-triangle text-yellow-400"></i>
+                        </div>
+                        <div class="ml-3">
+                            <p class="text-sm text-yellow-700">
+                                请妥善保管你的API密钥，不要分享给他人。API调用可能会产生费用，请根据豆包AI的定价政策合理使用。
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 快速操作 -->
+            <div class="mt-8 text-center">
+                <a href="treehole.html" class="inline-flex items-center text-primary hover:text-opacity-80 transition-all-300">
+                    <i class="fa fa-arrow-left mr-2"></i> 返回AI树洞
+                </a>
+            </div>
+        </div>
+    </main>
+
+    <!-- 页脚 -->
+    <footer class="bg-white py-8">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-4 md:mb-0">
+                    <a href="index.html" class="text-xl font-light tracking-wider text-dark">
+                        <span class="font-normal text-primary">给自己</span>留点空
+                    </a>
+                </div>
+                <div class="flex space-x-6">
+                    <a href="index.html" class="text-gray-500 hover:text-gray-800 transition-colors">首页</a>
+                    <a href="diary.html" class="text-gray-500 hover:text-gray-800 transition-colors">情绪日记</a>
+                    <a href="treehole.html" class="text-gray-500 hover:text-gray-800 transition-colors">AI树洞</a>
+                    <a href="checkin.html" class="text-gray-500 hover:text-gray-800 transition-colors">留白打卡</a>
+                </div>
+            </div>
+            <div class="border-t border-gray-100 mt-8 pt-8 text-center">
+                <p class="text-gray-500">&copy; 2025 给自己留点空. 保留所有权利.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // 移动端菜单
+        document.getElementById('mobile-menu-button').addEventListener('click', function() {
+            const mobileMenu = document.getElementById('mobile-menu');
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // 加载已保存的配置
+        function loadSavedConfig() {
+            const savedConfig = localStorage.getItem('doubaoAIConfig');
+            if (savedConfig) {
+                const config = JSON.parse(savedConfig);
+                document.getElementById('api-key').value = config.apiKey || '';
+                document.getElementById('secret-key').value = config.secretKey || '';
+                document.getElementById('model-select').value = config.model || 'ERNIE-Bot';
+                
+                // 更新状态显示
+                updateStatusDisplay(config);
+            }
+        }
+
+        // 更新状态显示
+        function updateStatusDisplay(config) {
+            const statusDiv = document.getElementById('current-status');
+            if (config.apiKey && config.secretKey) {
+                statusDiv.innerHTML = `
+                    <p class="text-green-600">
+                        <i class="fa fa-check-circle mr-2"></i>
+                        API密钥已配置，当前使用模型：${config.model}
+                    </p>
+                    <div class="mt-2">
+                        <button id="test-connection" class="text-sm text-primary hover:text-opacity-80 transition-all-300">
+                            <i class="fa fa-refresh mr-1"></i> 测试连接
+                        </button>
+                        <button id="clear-config" class="text-sm text-gray-500 hover:text-gray-700 transition-all-300 ml-4">
+                            <i class="fa fa-trash mr-1"></i> 清除配置
+                        </button>
+                    </div>
+                `;
+                
+                // 绑定测试连接按钮事件
+                document.getElementById('test-connection').addEventListener('click', testConnection);
+                document.getElementById('clear-config').addEventListener('click', clearConfig);
+            } else {
+                statusDiv.innerHTML = `
+                    <p class="text-gray-600">
+                        <i class="fa fa-info-circle text-primary mr-2"></i>
+                        尚未配置API密钥，当前使用本地模式。
+                    </p>
+                `;
+            }
+        }
+
+        // 测试连接
+        function testConnection() {
+            const statusDiv = document.getElementById('current-status');
+            const testButton = document.getElementById('test-connection');
+            
+            // 显示加载状态
+            testButton.innerHTML = '<i class="fa fa-spinner fa-spin mr-1"></i> 测试中...';
+            testButton.disabled = true;
+            
+            // 模拟测试连接
+            setTimeout(() => {
+                // 检查是否有有效的API密钥
+                const savedConfig = localStorage.getItem('doubaoAIConfig');
+                if (savedConfig) {
+                    const config = JSON.parse(savedConfig);
+                    if (config.apiKey && config.apiKey !== 'YOUR_API_KEY' && 
+                        config.secretKey && config.secretKey !== 'YOUR_SECRET_KEY') {
+                        
+                        statusDiv.innerHTML = `
+                            <p class="text-green-600">
+                                <i class="fa fa-check-circle mr-2"></i>
+                                连接测试成功！AI功能已启用。
+                            </p>
+                            <div class="mt-2">
+                                <button id="test-connection" class="text-sm text-primary hover:text-opacity-80 transition-all-300">
+                                    <i class="fa fa-refresh mr-1"></i> 测试连接
+                                </button>
+                                <button id="clear-config" class="text-sm text-gray-500 hover:text-gray-700 transition-all-300 ml-4">
+                                    <i class="fa fa-trash mr-1"></i> 清除配置
+                                </button>
+                            </div>
+                        `;
+                    } else {
+                        statusDiv.innerHTML = `
+                            <p class="text-red-600">
+                                <i class="fa fa-times-circle mr-2"></i>
+                                连接测试失败：请输入有效的API密钥。
+                            </p>
+                            <div class="mt-2">
+                                <button id="test-connection" class="text-sm text-primary hover:text-opacity-80 transition-all-300">
+                                    <i class="fa fa-refresh mr-1"></i> 测试连接
+                                </button>
+                                <button id="clear-config" class="text-sm text-gray-500 hover:text-gray-700 transition-all-300 ml-4">
+                                    <i class="fa fa-trash mr-1"></i> 清除配置
+                                </button>
+                            </div>
+                        `;
+                    }
+                }
+                
+                // 恢复按钮状态
+                testButton.innerHTML = '<i class="fa fa-refresh mr-1"></i> 测试连接';
+                testButton.disabled = false;
+                
+                // 重新绑定事件
+                document.getElementById('test-connection').addEventListener('click', testConnection);
+                document.getElementById('clear-config').addEventListener('click', clearConfig);
+            }, 1500);
+        }
+
+        // 清除配置
+        function clearConfig() {
+            if (confirm('确定要清除所有API配置吗？')) {
+                localStorage.removeItem('doubaoAIConfig');
+                document.getElementById('api-key').value = '';
+                document.getElementById('secret-key').value = '';
+                document.getElementById('model-select').value = 'ERNIE-Bot';
+                updateStatusDisplay({});
+            }
+        }
+
+        // 保存配置
+        document.getElementById('api-config-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const apiKey = document.getElementById('api-key').value.trim();
+            const secretKey = document.getElementById('secret-key').value.trim();
+            const model = document.getElementById('model-select').value;
+            
+            const config = {
+                apiKey: apiKey,
+                secretKey: secretKey,
+                model: model,
+                enabled: true
+            };
+            
+            // 保存到localStorage
+            localStorage.setItem('doubaoAIConfig', JSON.stringify(config));
+            
+            // 显示成功消息
+            const form = this;
+            const submitButton = form.querySelector('button[type="submit"]');
+            const originalText = submitButton.innerHTML;
+            
+            submitButton.innerHTML = '<i class="fa fa-check mr-2"></i> 保存成功';
+            submitButton.disabled = true;
+            
+            // 更新状态显示
+            updateStatusDisplay(config);
+            
+            // 恢复按钮状态
+            setTimeout(() => {
+                submitButton.innerHTML = originalText;
+                submitButton.disabled = false;
+            }, 2000);
+        });
+
+        // 页面加载时初始化
+        document.addEventListener('DOMContentLoaded', function() {
+            loadSavedConfig();
+        });
+    </script>
+</body>
+</html>

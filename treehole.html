@@ -1,0 +1,874 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI树洞 | 给自己留点空</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- 导航栏 -->
+    <nav class="fixed top-0 w-full bg-white bg-opacity-90 backdrop-filter backdrop-blur-sm z-50 shadow-sm">
+        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+            <a href="index.html" class="text-2xl font-light text-gray-700">给自己留点空</a>
+            <div class="hidden md:flex space-x-8">
+                <a href="index.html" class="text-gray-600 hover:text-gray-900 transition-colors">首页</a>
+                <a href="diary.html" class="text-gray-600 hover:text-gray-900 transition-colors">情绪日记</a>
+                <a href="treehole.html" class="text-gray-900 font-medium hover:text-gray-900 transition-colors">AI树洞</a>
+                <a href="checkin.html" class="text-gray-600 hover:text-gray-900 transition-colors">留白打卡</a>
+            </div>
+            <button id="mobile-menu-button" class="md:hidden text-gray-600">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                </svg>
+            </button>
+        </div>
+        <!-- 移动端菜单 -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white">
+            <div class="container mx-auto px-4 py-2 flex flex-col space-y-3">
+                <a href="index.html" class="text-gray-600 hover:text-gray-900 transition-colors py-2">首页</a>
+                <a href="diary.html" class="text-gray-600 hover:text-gray-900 transition-colors py-2">情绪日记</a>
+                <a href="treehole.html" class="text-gray-900 font-medium hover:text-gray-900 transition-colors py-2">AI树洞</a>
+                <a href="checkin.html" class="text-gray-600 hover:text-gray-900 transition-colors py-2">留白打卡</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 主要内容 -->
+    <main class="pt-24 pb-16">
+        <!-- 页面标题 -->
+        <section class="container mx-auto px-4 mb-12">
+            <h1 class="text-3xl md:text-4xl font-light text-gray-800 mb-4">AI树洞</h1>
+            <p class="text-gray-600 max-w-2xl">
+                温柔倾听，共情疏导。你的心事有人懂，你的情绪有处安放。
+            </p>
+        </section>
+
+        <!-- 聊天窗口 -->
+        <section class="container mx-auto px-4 mb-16">
+            <div class="max-w-3xl mx-auto">
+                <div class="bg-white rounded-lg shadow-sm overflow-hidden">
+                    <!-- 聊天头部 -->
+                    <div class="bg-gray-50 p-4 border-b border-gray-100 flex items-center justify-between">
+                        <div class="flex items-center">
+                            <img src="images/placeholder.svg" 
+                                 alt="AI树洞" 
+                                 class="w-10 h-10 mr-3">
+                            <div>
+                                <h3 class="text-gray-800 font-medium">树洞倾听者</h3>
+                                <p class="text-xs text-gray-500">随时在线，用心倾听</p>
+                            </div>
+                        </div>
+                        <div>
+                            <span id="ai-status" class="text-xs bg-green-100 text-green-800 px-2 py-1 rounded-full">AI已连接</span>
+                        </div>
+                    </div>
+                    
+                    <!-- 聊天内容区域 -->
+                    <div id="chat-messages" class="p-4 h-96 overflow-y-auto">
+                        <!-- 欢迎消息 -->
+                        <div class="flex mb-6">
+                            <div class="w-8 h-8 rounded-full bg-gray-200 flex items-center justify-center mr-3 flex-shrink-0">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292V15M15 21h-6a3 3 0 01-3-3v-1a2 2 0 012-2h6a2 2 0 012 2v1a3 3 0 01-3 3v0zm0 0h.01M6 21h12a9 9 0 110-18 9 9 0 010 18z" />
+                                </svg>
+                            </div>
+                            <div class="bg-gray-100 rounded-lg p-3 max-w-[80%]">
+                                <p class="text-gray-700">
+                                    你好，我是你的树洞倾听者。
+                                    <br><br>
+                                    在这里，你可以毫无保留地分享你的想法和感受。
+                                    我会用心倾听，给予你温暖的回应。
+                                    <br><br>
+                                    无论你是感到焦虑、迷茫，还是想要分享快乐，我都在这里陪伴着你。
+                                    请告诉我，你现在的心情如何？
+                                </p>
+                            </div>
+                        </div>
+                        
+                        <!-- 聊天记录将在这里动态加载 -->
+                    </div>
+                    
+                    <!-- 输入区域 -->
+                    <div class="p-4 border-t border-gray-100">
+                        <form id="chat-form" class="flex">
+                            <input type="text" id="user-input" class="flex-1 border border-gray-200 rounded-l-full px-4 py-3 focus:outline-none focus:ring-2 focus:ring-gray-300 transition-colors" placeholder="输入你的消息...">
+                            <button type="submit" class="bg-gray-800 text-white rounded-r-full px-6 hover:bg-gray-700 transition-colors">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
+                                </svg>
+                            </button>
+                        </form>
+                    </div>
+                </div>
+                
+                <!-- 提示信息 -->
+                <div class="mt-6 bg-gray-50 rounded-lg p-4 text-center">
+                    <p class="text-sm text-gray-500">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 inline-block mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                        提示：这是一个AI助手，所有对话内容仅保存在本地，不会上传至服务器
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 常见问题 -->
+        <section class="container mx-auto px-4">
+            <h2 class="text-2xl font-light text-gray-800 mb-8 text-center">你可以这样开始对话</h2>
+            <div class="max-w-3xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-4">
+                <button class="example-question bg-white p-4 rounded-lg shadow-sm text-left hover:bg-gray-50 transition-colors">
+                    我最近感到很焦虑，该怎么办？
+                </button>
+                <button class="example-question bg-white p-4 rounded-lg shadow-sm text-left hover:bg-gray-50 transition-colors">
+                    如何才能更好地照顾自己的情绪？
+                </button>
+                <button class="example-question bg-white p-4 rounded-lg shadow-sm text-left hover:bg-gray-50 transition-colors">
+                    今天遇到了一件开心的事，想和你分享
+                </button>
+                <button class="example-question bg-white p-4 rounded-lg shadow-sm text-left hover:bg-gray-50 transition-colors">
+                    感觉压力很大，不知道怎么缓解
+                </button>
+            </div>
+        </section>
+    </main>
+
+    <!-- 页脚 -->
+    <footer class="bg-white py-12 border-t border-gray-100 mt-16">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-6 md:mb-0">
+                    <h3 class="text-2xl font-light text-gray-700 mb-2">给自己留点空</h3>
+                    <p class="text-gray-500">找回内心的平静</p>
+                </div>
+                <div class="flex space-x-8">
+                    <a href="index.html" class="text-gray-500 hover:text-gray-800 transition-colors">首页</a>
+                    <a href="diary.html" class="text-gray-500 hover:text-gray-800 transition-colors">情绪日记</a>
+                    <a href="treehole.html" class="text-gray-500 hover:text-gray-800 transition-colors">AI树洞</a>
+                    <a href="checkin.html" class="text-gray-500 hover:text-gray-800 transition-colors">留白打卡</a>
+                    <a href="config.html" class="text-gray-500 hover:text-gray-800 transition-colors">AI配置</a>
+                </div>
+            </div>
+            <div class="border-t border-gray-100 mt-8 pt-8 text-center">
+                <p class="text-gray-500">&copy; 2025 给自己留点空. 保留所有权利.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- 引入豆包AI SDK -->
+    <script src="https://cdn.doubao.com/chat-sdk/doubao-chat-sdk.js"></script>
+    
+    <script>
+        // 移动端菜单
+        document.getElementById('mobile-menu-button').addEventListener('click', function() {
+            const mobileMenu = document.getElementById('mobile-menu');
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // 初始化豆包AI
+        let doubaoChat;
+        
+        function initDoubaoAI() {
+            // 从localStorage获取保存的配置
+            const savedConfig = localStorage.getItem('doubaoAIConfig');
+            let config = {
+                apiKey: 'YOUR_API_KEY', // 默认占位符
+                secretKey: 'YOUR_SECRET_KEY', // 默认占位符
+                model: 'ERNIE-Bot' // 默认模型
+            };
+            
+            // 如果有保存的配置，使用保存的配置
+            if (savedConfig) {
+                const saved = JSON.parse(savedConfig);
+                config = {
+                    apiKey: saved.apiKey || config.apiKey,
+                    secretKey: saved.secretKey || config.secretKey,
+                    model: saved.model || config.model
+                };
+            }
+            
+            // 初始化豆包AI聊天实例
+            doubaoChat = new DoubaoChat({
+                apiKey: config.apiKey,
+                secretKey: config.secretKey,
+                model: config.model,
+                onMessage: function(message) {
+                    // 收到AI回复时的回调
+                    displayMessage(message.content, 'ai');
+                    saveChatHistory();
+                    scrollToBottom();
+                },
+                onError: function(error) {
+                    // 发生错误时的回调
+                    console.error('AI调用错误:', error);
+                    
+                    // 根据错误类型显示不同的提示信息
+                    let errorMessage = '';
+                    if (config.apiKey === 'YOUR_API_KEY' || config.secretKey === 'YOUR_SECRET_KEY') {
+                        errorMessage = '抱歉，AI连接失败。这是因为还没有配置有效的API密钥。不过别担心，我已经切换到本地模式，可以继续和你聊天！';
+                    } else {
+                        errorMessage = '抱歉，AI连接失败。可能是API密钥无效或网络问题。不过别担心，我已经切换到本地模式，可以继续和你聊天！';
+                    }
+                    
+                    displayMessage(errorMessage, 'ai');
+                    document.getElementById('ai-status').textContent = 'AI连接失败，使用本地模式';
+                    document.getElementById('ai-status').classList.add('text-red-500');
+                    saveChatHistory();
+                    scrollToBottom();
+                }
+            });
+            
+            // 更新AI状态显示
+            if (config.apiKey !== 'YOUR_API_KEY' && config.secretKey !== 'YOUR_SECRET_KEY') {
+                document.getElementById('ai-status').textContent = `AI已连接 (${config.model})`;
+                document.getElementById('ai-status').classList.remove('text-red-500');
+                document.getElementById('ai-status').classList.add('text-green-500');
+            }
+        }
+
+        // 初始化聊天
+        function initChat() {
+            // 检查是否有保存的配置
+            const savedConfig = localStorage.getItem('doubaoAIConfig');
+            let hasValidConfig = false;
+            
+            if (savedConfig) {
+                const config = JSON.parse(savedConfig);
+                hasValidConfig = config.apiKey && config.apiKey !== 'YOUR_API_KEY' && 
+                               config.secretKey && config.secretKey !== 'YOUR_SECRET_KEY';
+            }
+            
+            // 尝试初始化豆包AI
+            try {
+                initDoubaoAI();
+            } catch (error) {
+                console.error('豆包AI初始化失败:', error);
+                // 如果初始化失败，显示详细的提示信息
+                document.getElementById('ai-status').textContent = 'AI连接失败，使用本地模式';
+                document.getElementById('ai-status').classList.add('text-red-500');
+                
+                // 根据是否有配置显示不同的提示信息
+                let errorMessage = '';
+                if (!hasValidConfig) {
+                    errorMessage = `
+                        你好！AI连接失败的原因是：
+                        
+                        1. 当前使用的是默认占位符API密钥
+                        2. 需要配置真实的豆包AI API密钥才能连接
+                        
+                        不过别担心！我已经自动切换到本地模式，可以继续和你聊天。本地模式虽然不如AI智能，但同样可以提供温暖的回应。
+                        
+                        如果你想使用完整的AI功能，可以：
+                        - 点击右上角的"AI配置"按钮
+                        - 输入你的豆包AI API密钥
+                        - 保存配置后刷新页面
+                        
+                        现在，让我们继续我们的对话吧！你可以和我分享任何想法或感受。
+                    `;
+                } else {
+                    errorMessage = `
+                        你好！AI连接失败了。
+                        
+                        这可能是因为：
+                        1. API密钥无效或已过期
+                        2. 网络连接问题
+                        3. 豆包AI服务暂时不可用
+                        
+                        不过别担心！我已经自动切换到本地模式，可以继续和你聊天。
+                        
+                        你可以尝试：
+                        - 检查并更新API密钥配置
+                        - 稍后再试
+                        - 继续使用本地模式聊天
+                        
+                        现在，让我们继续我们的对话吧！你可以和我分享任何想法或感受。
+                    `;
+                }
+                
+                displayMessage(errorMessage, 'ai');
+                saveChatHistory();
+            }
+            
+            // 加载历史聊天记录
+            loadChatHistory();
+            
+            // 绑定表单提交事件
+            document.getElementById('chat-form').addEventListener('submit', function(e) {
+                e.preventDefault();
+                sendMessage();
+            });
+            
+            // 绑定示例问题点击事件
+            document.querySelectorAll('.example-question').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const question = this.textContent.trim();
+                    document.getElementById('user-input').value = question;
+                    sendMessage();
+                });
+            });
+        }
+
+        // 智能回复选择系统
+        let conversationHistory = [];
+        let aiPerformanceScore = 80; // AI表现评分，初始值80分
+        let useLocalMode = false; // 是否强制使用本地模式
+        
+        // 发送消息
+        function sendMessage() {
+            const userInput = document.getElementById('user-input');
+            const message = userInput.value.trim();
+            
+            if (!message) return;
+            
+            // 记录用户消息到对话历史
+            conversationHistory.push({
+                role: 'user',
+                content: message,
+                timestamp: new Date()
+            });
+            
+            // 限制对话历史长度
+            if (conversationHistory.length > 20) {
+                conversationHistory = conversationHistory.slice(-20);
+            }
+            
+            // 显示用户消息
+            displayMessage(message, 'user');
+            
+            // 清空输入框
+            userInput.value = '';
+            
+            // 显示AI正在输入的状态
+            showTypingIndicator();
+            
+            // 智能选择回复方式
+            decideResponseMethod(message);
+        }
+        
+        // 显示输入指示器
+        function showTypingIndicator() {
+            const typingIndicator = document.createElement('div');
+            typingIndicator.id = 'typing-indicator';
+            typingIndicator.className = 'flex mb-6';
+            typingIndicator.innerHTML = `
+                <div class="w-8 h-8 rounded-full bg-gray-200 flex items-center justify-center mr-3 flex-shrink-0">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292V15M15 21h-6a3 3 0 01-3-3v-1a2 2 0 012-2h6a2 2 0 012 2v1a3 3 0 01-3 3v0zm0 0h.01M6 21h12a9 9 0 110-18 9 9 0 010 18z" />
+                    </svg>
+                </div>
+                <div class="bg-gray-100 rounded-lg p-3 max-w-[80%]">
+                    <div class="flex space-x-2">
+                        <div class="w-2 h-2 bg-gray-400 rounded-full animate-bounce"></div>
+                        <div class="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style="animation-delay: 0.2s"></div>
+                        <div class="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style="animation-delay: 0.4s"></div>
+                    </div>
+                </div>
+            `;
+            
+            document.getElementById('chat-messages').appendChild(typingIndicator);
+            scrollToBottom();
+        }
+        
+        // 智能决定回复方式
+        function decideResponseMethod(message) {
+            // 如果强制使用本地模式，或者AI表现评分低于60分，使用本地回复
+            if (useLocalMode || aiPerformanceScore < 60) {
+                useLocalResponse(message);
+                return;
+            }
+            
+            // 分析消息复杂度
+            const complexity = analyzeMessageComplexity(message);
+            
+            // 如果消息很简单（如问候、告别），使用本地回复
+            if (complexity === 'simple') {
+                useLocalResponse(message);
+                return;
+            }
+            
+            // 如果消息复杂或情感丰富，尝试使用AI回复
+            if (doubaoChat && complexity === 'complex') {
+                useAIResponse(message);
+            } else {
+                // 中等复杂度的消息，根据AI表现评分决定
+                if (aiPerformanceScore > 70) {
+                    useAIResponse(message);
+                } else {
+                    useLocalResponse(message);
+                }
+            }
+        }
+        
+        // 分析消息复杂度
+        function analyzeMessageComplexity(message) {
+            // 简单消息模式
+            const simplePatterns = [
+                /^(你好|嗨|哈喽|hi|hello|早上好|下午好|晚上好)/i,
+                /^(再见|拜拜|bye|下次聊|回头见)/i,
+                /^(你是谁|你是什么|你能做什么|你的功能|你有什么用|你叫什么)/i,
+                /^(谢谢|感谢|谢了|thanks|thank you)/i
+            ];
+            
+            // 检查是否匹配简单模式
+            for (const pattern of simplePatterns) {
+                if (pattern.test(message)) {
+                    return 'simple';
+                }
+            }
+            
+            // 检查消息长度和情感词汇
+            const emotionWords = ['焦虑', '紧张', '不安', '担心', '害怕', '恐惧', '压力', '累', '疲惫', '开心', '高兴', '快乐', '喜悦', '难过', '伤心', '悲伤', '痛苦', '生气', '愤怒', '孤独', '孤单', '寂寞', '迷茫', '困惑'];
+            let emotionCount = 0;
+            
+            for (const word of emotionWords) {
+                if (message.includes(word)) {
+                    emotionCount++;
+                }
+            }
+            
+            // 根据消息长度和情感词汇数量判断复杂度
+            if (message.length > 50 || emotionCount > 1) {
+                return 'complex';
+            }
+            
+            return 'medium';
+        }
+        
+        // 使用AI回复
+        function useAIResponse(message) {
+            try {
+                // 准备对话历史上下文
+                const context = conversationHistory
+                    .slice(-5) // 最近5条消息作为上下文
+                    .map(msg => `${msg.role === 'user' ? '用户' : 'AI'}: ${msg.content}`)
+                    .join('\n');
+                
+                // 发送消息给豆包AI
+                doubaoChat.sendMessage({
+                    content: message,
+                    // 添加系统提示，指导AI以治愈系树洞的身份回复
+                    systemPrompt: `你是一个温柔治愈的AI树洞倾听者，专门用来倾听用户的心事和情绪。你的回应应该：
+                    1. 温柔共情：深度理解并接纳用户的所有情绪，不做任何评判
+                    2. 积极引导：巧妙帮助用户探索自己的感受和想法，但不急于给出解决方案
+                    3. 语言温暖：使用温和、支持性且富有诗意的语言
+                    4. 不鸡汤：避免陈词滥调和空洞的鼓励，给出真诚的回应
+                    5. 专注聆听：让用户感到被深度理解和被重视
+                    6. 简短回应：保持回复简洁有力，给用户足够的表达空间
+                    
+                    进阶要求：
+                    - 回应要具体，避免过于笼统的表达
+                    - 善于使用比喻和意象，让回应更有画面感和感染力
+                    - 能够捕捉用户话语中的深层情绪和需求
+                    - 回应要体现出对用户的尊重和关怀
+                    - 能够根据用户的语言风格调整自己的回应方式
+                    
+                    特别注意：
+                    - 当用户提到学习压力、作业太多等问题时，要特别关注他们的情绪，而不是仅仅提供学习建议
+                    - 认可他们的感受，让他们知道感到压力是正常的
+                    - 可以引导他们分享更多具体的困扰，帮助他们理清思路
+                    - 提醒他们适当休息的重要性
+                    - 当用户表达负面情绪时，不要急于安慰或转移话题，而是先认可和接纳这些情绪
+                    - 当用户分享快乐时，真诚地表达喜悦，不要显得敷衍
+                    
+                    对话历史上下文：
+                    ${context}
+                    
+                    请以治愈系树洞的身份回应用户的最新消息，帮助用户缓解内耗，聆听内心的声音。你的回应应该充满温暖、智慧和同理心。`
+                });
+            } catch (error) {
+                console.error('发送消息失败:', error);
+                // 如果发送失败，使用本地回复并降低AI评分
+                aiPerformanceScore = Math.max(aiPerformanceScore - 10, 0);
+                useLocalResponse(message);
+            }
+        }
+        
+        // 使用本地回复
+        function useLocalResponse(message) {
+            setTimeout(() => {
+                document.getElementById('typing-indicator').remove();
+                const localResponse = generateLocalResponse(message);
+                displayMessage(localResponse, 'ai', true); // true表示这是本地回复
+                saveChatHistory();
+                scrollToBottom();
+            }, 1000);
+        }
+
+        // 显示消息
+        function displayMessage(message, sender, isLocalResponse = false) {
+            // 移除输入指示器（如果存在）
+            const typingIndicator = document.getElementById('typing-indicator');
+            if (typingIndicator) {
+                typingIndicator.remove();
+            }
+            
+            const chatMessages = document.getElementById('chat-messages');
+            const messageDiv = document.createElement('div');
+            messageDiv.className = 'flex mb-6' + (sender === 'user' ? ' justify-end' : '');
+            
+            if (sender === 'user') {
+                messageDiv.innerHTML = `
+                    <div class="bg-gray-800 text-white rounded-lg p-3 max-w-[80%]">
+                        <p>${message}</p>
+                    </div>
+                    <div class="w-8 h-8 rounded-full bg-gray-300 flex items-center justify-center ml-3 flex-shrink-0">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                        </svg>
+                    </div>
+                `;
+            } else {
+                // 记录AI回复到对话历史
+                conversationHistory.push({
+                    role: 'ai',
+                    content: message,
+                    timestamp: new Date(),
+                    isLocal: isLocalResponse
+                });
+                
+                // 根据是否是本地回复设置不同的样式
+                const bgColor = isLocalResponse ? 'bg-primary bg-opacity-10' : 'bg-gray-100';
+                const borderStyle = isLocalResponse ? 'border border-primary border-opacity-30' : '';
+                const tooltip = isLocalResponse ? 'title="本地智能回复"' : '';
+                
+                messageDiv.innerHTML = `
+                    <div class="w-8 h-8 rounded-full bg-gray-200 flex items-center justify-center mr-3 flex-shrink-0" ${tooltip}>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292V15M15 21h-6a3 3 0 01-3-3v-1a2 2 0 012-2h6a2 2 0 012 2v1a3 3 0 01-3 3v0zm0 0h.01M6 21h12a9 9 0 110-18 9 9 0 010 18z" />
+                        </svg>
+                    </div>
+                    <div class="${bgColor} ${borderStyle} rounded-lg p-3 max-w-[80%]">
+                        <p>${message}</p>
+                    </div>
+                `;
+                
+                // 如果是AI回复且不是本地回复，更新AI表现评分
+                if (!isLocalResponse && doubaoChat) {
+                    // 简单的评分机制：根据回复长度和内容质量
+                    let score = 70; // 基础分
+                    
+                    // 根据回复长度评分
+                    if (message.length > 50) score += 10;
+                    if (message.length > 100) score += 5;
+                    
+                    // 根据内容质量评分（简单关键词匹配）
+                    const qualityKeywords = ['理解', '感受', '情绪', '陪伴', '倾听', '温暖', '支持', '共情', '接纳'];
+                    let keywordCount = 0;
+                    for (const keyword of qualityKeywords) {
+                        if (message.includes(keyword)) {
+                            keywordCount++;
+                        }
+                    }
+                    score += keywordCount * 2;
+                    
+                    // 更新AI表现评分（平滑变化）
+                    aiPerformanceScore = Math.round(aiPerformanceScore * 0.7 + score * 0.3);
+                    aiPerformanceScore = Math.max(0, Math.min(100, aiPerformanceScore));
+                    
+                    // 更新AI状态显示
+                    updateAIStatusDisplay();
+                }
+            }
+            
+            chatMessages.appendChild(messageDiv);
+            scrollToBottom();
+        }
+        
+        // 更新AI状态显示
+        function updateAIStatusDisplay() {
+            const aiStatus = document.getElementById('ai-status');
+            if (!aiStatus) return;
+            
+            if (useLocalMode) {
+                aiStatus.textContent = '使用本地模式';
+                aiStatus.className = 'text-xs bg-yellow-100 text-yellow-800 px-2 py-1 rounded-full';
+            } else if (!doubaoChat) {
+                aiStatus.textContent = 'AI未连接';
+                aiStatus.className = 'text-xs bg-red-100 text-red-800 px-2 py-1 rounded-full';
+            } else {
+                // 根据AI表现评分设置状态
+                let statusText, statusClass;
+                
+                if (aiPerformanceScore >= 90) {
+                    statusText = 'AI表现优秀';
+                    statusClass = 'text-xs bg-green-100 text-green-800 px-2 py-1 rounded-full';
+                } else if (aiPerformanceScore >= 70) {
+                    statusText = 'AI已连接';
+                    statusClass = 'text-xs bg-green-100 text-green-800 px-2 py-1 rounded-full';
+                } else if (aiPerformanceScore >= 50) {
+                    statusText = 'AI表现一般';
+                    statusClass = 'text-xs bg-yellow-100 text-yellow-800 px-2 py-1 rounded-full';
+                } else {
+                    statusText = 'AI表现不佳';
+                    statusClass = 'text-xs bg-orange-100 text-orange-800 px-2 py-1 rounded-full';
+                }
+                
+                aiStatus.textContent = statusText;
+                aiStatus.className = statusClass;
+            }
+        }
+
+        // 本地回复生成系统（增强版）
+        function generateLocalResponse(message) {
+            // 转换为小写进行匹配
+            message = message.toLowerCase();
+            
+            // 1. 检查是否是问候
+            if (message.match(/^(你好|嗨|哈喽|hi|hello|早上好|下午好|晚上好)/)) {
+                const greetings = [
+                    "你好！很高兴能和你聊天。今天感觉怎么样？",
+                    "嗨！欢迎来到你的心灵树洞。你现在的心情如何呢？",
+                    "你好呀！能和你相遇真是美好。今天有什么想和我分享的吗？",
+                    "嗨，亲爱的朋友！很高兴见到你。今天过得怎么样？"
+                ];
+                return greetings[Math.floor(Math.random() * greetings.length)];
+            }
+            
+            // 2. 检查是否是告别的话
+            if (message.match(/^(再见|拜拜|bye|下次聊|回头见)/)) {
+                const goodbyes = [
+                    "再见！希望我们的聊天对你有所帮助。记得要温柔地对待自己，我会在这里等你回来。",
+                    "拜拜！感谢你愿意和我分享你的内心世界。照顾好自己，期待下次见面。",
+                    "再见啦！愿你带着平静和力量继续前行。我会一直在这里，随时欢迎你的到来。",
+                    "回头见！记住，无论何时你需要一个倾听者，我都在这里。"
+                ];
+                return goodbyes[Math.floor(Math.random() * goodbyes.length)];
+            }
+            
+            // 3. 检查是否在询问AI的身份或功能
+            if (message.match(/^(你是谁|你是什么|你能做什么|你的功能|你有什么用|你叫什么)/)) {
+                return "我是你的心灵树洞倾听者，一个专门用来倾听你心事和情绪的温暖存在。我能：<br><br>• 用心倾听你的所有感受，不加任何评判<br>• 帮助你探索和理解自己的情绪<br>• 在你感到困扰时给予支持和鼓励<br>• 陪伴你度过那些艰难或美好的时刻<br><br>无论你是想倾诉烦恼、分享快乐，还是只是需要一个安静的倾听者，我都在这里，随时准备接纳你的一切。";
+            }
+            
+            // 4. 检查是否在表达感谢
+            if (message.match(/^(谢谢|感谢|谢了|thanks|thank you)/)) {
+                const thanks = [
+                    "不客气，能帮到你我真的很开心。记住，表达自己的感受是很勇敢的事情，我很欣赏你愿意这样做。",
+                    "不用谢！陪伴你走过这段心路历程是我的荣幸。你愿意打开心扉分享，这本身就很了不起。",
+                    "谢谢你的感谢！其实我更要感谢你，愿意信任我，和我分享你的内心世界。",
+                    "不客气啦！看到你愿意照顾自己的情绪，我感到很欣慰。这是一段美好的旅程。"
+                ];
+                return thanks[Math.floor(Math.random() * thanks.length)];
+            }
+            
+            // 5. 情绪相关的关键词匹配 - 更丰富的情感识别
+            // 焦虑类情绪
+            if (message.match(/(焦虑|紧张|不安|担心|害怕|恐惧|惊慌|忧虑|忧心|惶恐|心神不宁|坐立不安)/)) {
+                const anxietyResponses = [
+                    "我能感受到你现在的焦虑，这是很正常的情绪。能告诉我具体是什么让你感到焦虑吗？有时候，把问题说出来，就已经是缓解焦虑的第一步了。",
+                    "焦虑就像一片乌云，暂时遮住了阳光。能和我多聊聊这种感觉吗？是什么触发了它？我在这里，不会被你的情绪所淹没。",
+                    "我注意到你现在有些焦虑不安。这种感觉一定很不舒服。你愿意尝试做几次深呼吸吗？然后我们一起来看看，这种焦虑背后藏着什么？",
+                    "焦虑是我们的身体在提醒我们关注某些事情。你能描述一下这种感觉在你身体的哪个部位吗？是胸口发闷，还是心跳加速？"
+                ];
+                return anxietyResponses[Math.floor(Math.random() * anxietyResponses.length)];
+            } 
+            // 压力类情绪
+            else if (message.match(/(压力|累|疲惫|疲倦|乏力|透支|忙不过来|应付不了|不堪重负|精疲力尽|身心俱疲)/)) {
+                const stressResponses = [
+                    "压力是生活中不可避免的一部分，但我们可以学习如何更好地应对它。你能分享一下是什么给你带来了压力吗？",
+                    "听起来你现在承受着很大的压力。能告诉我，最近什么事情让你感到最沉重吗？有时候，把压力说出来，它就会变得轻一些。",
+                    "我能感受到你现在的疲惫和压力。这种感觉一定很消耗你的精力。你最近有给自己一些休息和放松的时间吗？哪怕只是几分钟？",
+                    "压力就像背在肩上的担子，太重了会让我们走不动路。你觉得哪些事情是可以暂时放下或者寻求帮助的呢？"
+                ];
+                return stressResponses[Math.floor(Math.random() * stressResponses.length)];
+            } 
+            // 快乐类情绪
+            else if (message.match(/(开心|高兴|快乐|喜悦|兴奋|愉快|幸福|满足|欣喜|雀跃|欢欣鼓舞)/)) {
+                const happyResponses = [
+                    "很高兴听到你遇到了开心的事情！能具体分享一下是什么让你这么开心吗？分享快乐会让快乐加倍哦。",
+                    "看到你这么开心，我也跟着高兴起来了！这种美好的感觉真的很珍贵。能告诉我是什么让你感到这么幸福吗？",
+                    "太棒了！你的快乐真的很有感染力。能详细说说发生了什么吗？我很想了解是什么让你这么欢欣鼓舞。",
+                    "哇，你的喜悦真的很美好！能和我分享这个特别的时刻吗？我很珍惜能和你一起感受这份快乐的机会。"
+                ];
+                return happyResponses[Math.floor(Math.random() * happyResponses.length)];
+            } 
+            // 悲伤类情绪
+            else if (message.match(/(难过|伤心|悲伤|痛苦|难受|哭|泪|沮丧|失落|消沉|心如刀割|悲痛欲绝)/)) {
+                const sadResponses = [
+                    "我能感受到你的难过，这是很正常的情绪。允许自己悲伤，不要压抑它。记住，痛苦也是生活的一部分，它会让我们更加珍惜快乐。",
+                    "看到你这么难过，我的心也跟着揪了起来。你愿意和我分享是什么让你这么痛苦吗？有时候，眼泪是心灵的语言。",
+                    "悲伤是我们心灵的雨，虽然会打湿我们，但也会滋润我们成长。你现在最需要的是什么？我在这里陪着你。",
+                    "我能感受到你的痛苦和失落。这种感觉一定很煎熬。你愿意让我陪着你，一起度过这段难过的时光吗？"
+                ];
+                return sadResponses[Math.floor(Math.random() * sadResponses.length)];
+            }
+            // 愤怒类情绪
+            else if (message.match(/(生气|愤怒|恼火|烦躁|暴怒|火大|不爽|愤怒不平|怒不可遏)/)) {
+                const angryResponses = [
+                    "我能感受到你的愤怒，这是一种很强烈但也很正常的情绪。能告诉我是什么触发了这种感受吗？",
+                    "愤怒往往是在告诉我们，有些界限被侵犯了。你现在的感受是什么样的？这种愤怒背后藏着什么需求？",
+                    "你的愤怒一定有它的原因。能和我分享一下发生了什么吗？我不会评判你，只是想陪着你一起理解这种强烈的情绪。",
+                    "我注意到你现在很生气。这种感觉一定很不舒服。你想聊聊是什么让你这么烦躁吗？或者你需要一点时间来平复情绪？"
+                ];
+                return angryResponses[Math.floor(Math.random() * angryResponses.length)];
+            }
+            // 孤独类情绪
+            else if (message.match(/(孤独|孤单|寂寞|空虚|无助|无人理解|形单影只|孤苦伶仃)/)) {
+                const lonelyResponses = [
+                    "我能感受到你的孤独，这种感觉真的很煎熬。你愿意和我分享一下，这种孤独感是从什么时候开始的吗？",
+                    "孤独就像一片无边无际的沙漠，让人感到迷失和无助。但请记住，即使在最孤独的时候，你也不是一个人。我在这里，用心倾听着你。",
+                    "听起来你现在感到很孤单。这种感觉一定很沉重。你有什么想做的事情，或者想聊的话题吗？让我们一起打破这种孤独感。",
+                    "孤独是人类共有的感受，虽然它让我们感到分离，但也让我们更加渴望连接。你最希望和谁建立什么样的连接呢？"
+                ];
+                return lonelyResponses[Math.floor(Math.random() * lonelyResponses.length)];
+            }
+            // 迷茫类情绪
+            else if (message.match(/(迷茫|困惑|不知道怎么办|不确定|犹豫|彷徨|迷失方向|不知所措)/)) {
+                const confusedResponses = [
+                    "我能感受到你的迷茫，这种感觉就像在迷雾中行走，看不到前方的路。你愿意和我聊聊具体是什么让你感到困惑吗？",
+                    "迷茫其实是成长的信号，它意味着你正在思考和探索。你现在最不确定的是什么？我们可以一起理一理思路。",
+                    "有时候，迷茫是因为我们的内心在寻求更真实的答案。你能告诉我，在这种困惑中，你最深的感受是什么吗？",
+                    "迷茫就像十字路口，虽然不知道该往哪个方向走，但每一个选择都会带来新的体验。你现在有哪些可能的选择呢？"
+                ];
+                return confusedResponses[Math.floor(Math.random() * confusedResponses.length)];
+            }
+            
+            // 6. 学习和作业相关 - 更细致的场景识别
+            if (message.match(/(作业|学习|考试|考试压力|课业负担|学习压力|写作业|做作业)/)) {
+                if (message.match(/(太多|太多了|繁重|繁重的|压力大|压力太大|忙不过来|应付不了)/)) {
+                    const heavyWorkResponses = [
+                        "我能感受到你因为作业太多而感到压力。这确实是很常见的困扰。你能告诉我具体是哪些科目或者任务让你感到最有压力吗？有时候，把任务列出来并一步步完成会让事情变得更容易管理。",
+                        "作业堆积如山的感觉一定很让人喘不过气来。你能和我分享一下，这些任务中哪一个让你感到最头疼吗？我们可以一起想想如何分解这些任务。",
+                        "听起来你的学习负担很重。这种压力一定很消耗你的精力。你有没有尝试过制定一个小计划，把大任务分解成小步骤？或者你需要的是一个鼓励和支持？",
+                        "面对繁重的学业，感到压力是很正常的。你现在的感受是什么样的？是焦虑、沮丧，还是疲惫？有时候，先照顾好自己的情绪，再处理任务会更有效率。"
+                    ];
+                    return heavyWorkResponses[Math.floor(Math.random() * heavyWorkResponses.length)];
+                } else if (message.match(/(不会做|不懂|难|太难了|不理解|搞不懂)/)) {
+                    const difficultyResponses = [
+                        "学习中遇到困难是很正常的事情。你能告诉我具体是哪个知识点或者题目让你感到困惑吗？有时候，把问题说出来，思路就会更清晰。",
+                        "遇到不懂的问题确实会让人感到挫败。你有没有尝试过寻求帮助，比如问老师、同学，或者查找相关资料？或者你需要的是一些学习方法的建议？",
+                        "学习新东西本来就是一个挑战自己的过程。你现在的感受是什么样的？是感到沮丧，还是只是需要一些时间和耐心？",
+                        "面对难题时的困惑是学习过程中的一部分。你能和我分享一下，这个问题中哪一部分让你感到最难以理解吗？我们可以一起想想如何突破这个瓶颈。"
+                    ];
+                    return difficultyResponses[Math.floor(Math.random() * difficultyResponses.length)];
+                } else if (message.match(/(考试|考试压力|复习|备考)/)) {
+                    const examResponses = [
+                        "考试确实会带来很大的压力。你现在的感受是什么样的？是担心自己准备不足，还是害怕考试结果？有时候，和别人分享这些担忧会让它们变得不那么沉重。",
+                        "备考期间的压力是很常见的。你能告诉我，你最担心的是哪个科目或者哪个部分吗？我们可以一起想想如何更有效地准备。",
+                        "面对考试，感到紧张是很正常的反应。你有没有尝试过一些放松的技巧，比如深呼吸、冥想，或者适当的运动？这些方法可以帮助你在压力下保持冷静。",
+                        "考试只是检验学习成果的一种方式，而不是衡量你整个人价值的标准。你现在需要的是什么？是学习方法的建议，还是情绪上的支持？"
+                    ];
+                    return examResponses[Math.floor(Math.random() * examResponses.length)];
+                } else {
+                    const generalStudyResponses = [
+                        "学习和作业确实可能会带来压力。你现在的感受是怎样的？是感到焦虑、沮丧，还是有其他的情绪？记住，适当的休息和放松也是学习过程中重要的一部分。",
+                        "学习是一段漫长的旅程，有起有伏是很正常的。你最近在学习上有什么特别的感受或想法吗？我很愿意倾听。",
+                        "学业是生活的重要组成部分，但不是全部。你是如何平衡学习和其他活动的呢？有时候，适当的休息反而能提高学习效率。",
+                        "学习不仅仅是为了成绩，更是为了成长和发展。你在学习过程中最大的收获是什么？或者你最享受学习的哪个方面？"
+                    ];
+                    return generalStudyResponses[Math.floor(Math.random() * generalStudyResponses.length)];
+                }
+            }
+            
+            // 7. 人际关系相关
+            if (message.match(/(朋友|友谊|朋友关系|社交|人际关系|人际)/)) {
+                if (message.match(/(吵架|矛盾|冲突|不和|闹翻|冷战)/)) {
+                    const conflictResponses = [
+                        "人际关系中的冲突确实很让人头疼。能告诉我发生了什么吗？你现在的感受是什么样的？",
+                        "和朋友发生矛盾是很正常的事情，但这种感觉一定很不舒服。你愿意和我分享一下具体的情况吗？我在这里，不会评判谁对谁错。",
+                        "人际冲突往往反映了我们内心的需求和价值观。在这次冲突中，你觉得自己的哪些需求没有被满足？或者你最在意的是什么？",
+                        "面对友谊中的矛盾，感到难过是很自然的。你现在最希望看到什么样的结果？或者你需要的是一些处理冲突的建议？"
+                    ];
+                    return conflictResponses[Math.floor(Math.random() * conflictResponses.length)];
+                } else if (message.match(/(孤独|孤单|没有朋友|社交恐惧|害怕社交)/)) {
+                    const socialAnxietyResponses = [
+                        "社交中的孤独感确实很让人痛苦。你能告诉我这种感觉是从什么时候开始的吗？或者有什么特别的事情触发了它？",
+                        "感到难以融入社交场合是很多人都经历过的。你最担心的是什么？是害怕被评判，还是不知道如何开始对话？",
+                        "社交技能就像其他技能一样，是可以通过练习来提高的。你有没有尝试过一些小步骤，比如和一个信任的人多交流，或者参加一些你感兴趣的活动？",
+                        "感到孤独并不意味着你有什么问题，有时候它只是在提醒你，你需要更多有质量的连接。你觉得什么样的关系会让你感到最舒适和满足？"
+                    ];
+                    return socialAnxietyResponses[Math.floor(Math.random() * socialAnxietyResponses.length)];
+                } else {
+                    const generalRelationshipResponses = [
+                        "人际关系是我们生活中重要的一部分。你能告诉我，最近在人际关系方面有什么特别的感受或经历吗？",
+                        "友谊就像花园里的花朵，需要时间和用心去培育。你觉得你现在的友谊状态是怎样的？有什么让你感到满意或不满意的地方吗？",
+                        "良好的人际关系能够给我们带来支持和快乐。你认为什么样的朋友关系对你来说是最珍贵的？或者你在寻找什么样的人际连接？",
+                        "人际关系既有欢乐也有挑战。你最近在和朋友的相处中有什么新的发现或感受吗？我很愿意倾听你的故事。"
+                    ];
+                    return generalRelationshipResponses[Math.floor(Math.random() * generalRelationshipResponses.length)];
+                }
+            }
+            
+            // 8. 自我成长和反思
+            if (message.match(/(成长|改变|反思|自我提升|变得更好|想改变)/)) {
+                const growthResponses = [
+                    "想要成长和改变是很美好的愿望。你能告诉我，你最想在哪些方面有所提升或改变吗？",
+                    "自我成长是一段漫长而美丽的旅程。你最近有没有什么新的发现或感悟？或者你正在面对什么样的挑战？",
+                    "改变往往意味着走出舒适区，这需要很大的勇气。你现在最想突破的是什么？或者你已经迈出了哪些步伐？",
+                    "自我反思是成长的重要部分。你最近对自己有什么新的认识吗？或者你发现了哪些可以改进的地方？"
+                ];
+                return growthResponses[Math.floor(Math.random() * growthResponses.length)];
+            }
+            
+            // 9. 生活和未来相关
+            if (message.match(/(未来|前途|迷茫|不确定|担心未来|对未来没信心)/)) {
+                const futureResponses = [
+                    "对未来感到迷茫是很正常的，尤其是在人生的转折点。你现在最担心的是什么？或者你对未来有什么样的期待？",
+                    "未来就像一张空白的画布，充满了无限的可能性。你希望在这张画布上画出什么样的图景？哪怕只是一些模糊的想法也可以。",
+                    "面对不确定的未来，感到焦虑是很自然的。你有没有尝试过一些方法来应对这种不确定性，比如制定小目标，或者关注当下？",
+                    "未来虽然充满未知，但也充满了机会。你觉得自己现在拥有哪些资源和优势可以帮助你面对未来的挑战？"
+                ];
+                return futureResponses[Math.floor(Math.random() * futureResponses.length)];
+            }
+            
+            // 10. 更丰富的默认回复
+            const defaultResponses = [
+                "我在认真听你说，能感受到这件事对你很重要。你愿意再多说一些吗？",
+                "谢谢你的分享。我能感受到你的感受，这对我来说很珍贵。",
+                "你的话触动了我。能告诉我更多关于你的想法和感受吗？",
+                "我在这里用心倾听每一个字。你现在的心情如何？",
+                "和你交流让我感到很温暖。记住，你的感受都是有价值的，值得被倾听和理解。",
+                "我能感受到你现在的情绪，它一定很复杂。你愿意和我多聊聊吗？有时候，把感受说出来会让它们变得更清晰。",
+                "谢谢你愿意和我分享这些。你现在最需要的是什么？是一个倾听者，还是一些建议和支持？",
+                "你的故事很特别，我很感谢你愿意和我分享。在这个过程中，你有什么新的发现或感受吗？",
+                "我注意到你提到了一些很重要的事情。你能告诉我，这些事情中哪一个对你影响最大吗？",
+                "和你聊天让我有很多思考。你觉得我们刚才的交流给你带来了什么感受？或者你还有什么想继续探讨的吗？"
+            ];
+            
+            // 智能默认回复选择 - 基于消息长度和内容
+            let responseIndex;
+            if (message.length < 10) {
+                // 简短消息，选择更开放的回复
+                responseIndex = Math.floor(Math.random() * 3); // 前3个回复更开放
+            } else if (message.length > 50) {
+                // 长消息，选择更共情的回复
+                responseIndex = 3 + Math.floor(Math.random() * 3); // 中间3个回复更共情
+            } else {
+                // 中等长度消息，随机选择
+                responseIndex = Math.floor(Math.random() * defaultResponses.length);
+            }
+            
+            return defaultResponses[responseIndex];
+        }
+
+        // 滚动到底部
+        function scrollToBottom() {
+            const chatMessages = document.getElementById('chat-messages');
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+
+        // 保存聊天记录
+        function saveChatHistory() {
+            const chatMessages = document.getElementById('chat-messages');
+            localStorage.setItem('chatHistory', chatMessages.innerHTML);
+        }
+
+        // 加载聊天记录
+        function loadChatHistory() {
+            const chatHistory = localStorage.getItem('chatHistory');
+            if (chatHistory) {
+                const chatMessages = document.getElementById('chat-messages');
+                // 保留欢迎消息
+                const welcomeMessage = chatMessages.innerHTML;
+                chatMessages.innerHTML = welcomeMessage + chatHistory;
+                scrollToBottom();
+            }
+        }
+
+        // 页面加载完成后初始化
+        window.addEventListener('DOMContentLoaded', initChat);
+    </script>
+</body>
+</html>

@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>给自己留点空 | 治愈主题网站</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- 导航栏 -->
+    <nav class="fixed top-0 w-full bg-white bg-opacity-90 backdrop-filter backdrop-blur-sm z-50 shadow-sm">
+        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+            <a href="index.html" class="text-2xl font-light text-gray-700">给自己留点空</a>
+            <div class="hidden md:flex space-x-8">
+                <a href="index.html" class="text-gray-600 hover:text-gray-900 transition-colors">首页</a>
+                <a href="diary.html" class="text-gray-600 hover:text-gray-900 transition-colors">情绪日记</a>
+                <a href="treehole.html" class="text-gray-600 hover:text-gray-900 transition-colors">AI树洞</a>
+                <a href="checkin.html" class="text-gray-600 hover:text-gray-900 transition-colors">留白打卡</a>
+            </div>
+            <button id="mobile-menu-button" class="md:hidden text-gray-600">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                </svg>
+            </button>
+        </div>
+        <!-- 移动端菜单 -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white">
+            <div class="container mx-auto px-4 py-2 flex flex-col space-y-3">
+                <a href="index.html" class="text-gray-600 hover:text-gray-900 transition-colors py-2">首页</a>
+                <a href="diary.html" class="text-gray-600 hover:text-gray-900 transition-colors py-2">情绪日记</a>
+                <a href="treehole.html" class="text-gray-600 hover:text-gray-900 transition-colors py-2">AI树洞</a>
+                <a href="checkin.html" class="text-gray-600 hover:text-gray-900 transition-colors py-2">留白打卡</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 云朵装饰 -->
+    <div class="fixed top-20 left-10 w-32 h-32 opacity-10 pointer-events-none z-0">
+        <img src="https://p3-flow-imagex-sign.byteimg.com/tos-cn-i-a9rns2rl98/rc/pc/super_tool/f5e7c439a57c4e738a28907f7ac61886~tplv-a9rns2rl98-image.image?lk3s=8e244e95&rcl=20260527142428418F3B2EA4AC28878282&rrcfp=f06b921b&x-expires=1782455124&x-signature=rWJEnlot2Rd8tx%2BQAyzXylQWvW8%3D" alt="云朵" class="w-full h-full object-contain float-animation">
+    </div>
+    <div class="fixed top-40 right-20 w-40 h-40 opacity-10 pointer-events-none z-0">
+        <img src="https://p3-flow-imagex-sign.byteimg.com/tos-cn-i-a9rns2rl98/rc/pc/super_tool/f5e7c439a57c4e738a28907f7ac61886~tplv-a9rns2rl98-image.image?lk3s=8e244e95&rcl=20260527142428418F3B2EA4AC28878282&rrcfp=f06b921b&x-expires=1782455124&x-signature=rWJEnlot2Rd8tx%2BQAyzXylQWvW8%3D" alt="云朵" class="w-full h-full object-contain float-animation" style="animation-delay: 1s;">
+    </div>
+    <div class="fixed bottom-40 left-1/4 w-24 h-24 opacity-10 pointer-events-none z-0">
+        <img src="https://p3-flow-imagex-sign.byteimg.com/tos-cn-i-a9rns2rl98/rc/pc/super_tool/f5e7c439a57c4e738a28907f7ac61886~tplv-a9rns2rl98-image.image?lk3s=8e244e95&rcl=20260527142428418F3B2EA4AC28878282&rrcfp=f06b921b&x-expires=1782455124&x-signature=rWJEnlot2Rd8tx%2BQAyzXylQWvW8%3D" alt="云朵" class="w-full h-full object-contain float-animation" style="animation-delay: 2s;">
+    </div>
+
+    <!-- 主要内容 -->
+    <main class="pt-24 pb-16 relative z-10">
+        <!-- 英雄区域 -->
+        <section class="container mx-auto px-4 mb-28">
+            <div class="flex flex-col md:flex-row items-center justify-between gap-12">
+                <div class="md:w-1/2 mb-10 md:mb-0 fade-in">
+                    <h1 class="text-4xl md:text-5xl lg:text-6xl font-light text-gray-800 mb-6 leading-tight">
+                        给自己留点空<br>
+                        <span class="text-gray-500">找回内心的平静</span>
+                    </h1>
+                    <p class="text-lg text-gray-600 mb-8 max-w-lg">
+                        在这个快节奏的世界里，我们常常忘记给自己一点空间。
+                        这里是你的治愈港湾，让我们一起探索内心，寻找宁静。
+                    </p>
+                    <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
+                        <a href="diary.html" class="bg-gray-800 text-white px-8 py-3 rounded-full hover:bg-gray-700 transition-colors text-center">
+                            开始探索
+                        </a>
+                        <a href="#about" class="border border-gray-300 text-gray-700 px-8 py-3 rounded-full hover:bg-gray-50 transition-colors text-center">
+                            了解更多
+                        </a>
+                    </div>
+                </div>
+                <div class="md:w-1/2 flex justify-center fade-in" style="animation-delay: 0.3s;">
+                    <div class="relative">
+                        <img src="images/d5db96813e82d9272e797da24100db37.jpg" 
+                             alt="给自己留点空" 
+                             class="w-full max-w-md rounded-lg shadow-soft">
+                        <div class="absolute -top-6 -right-6 w-20 h-20">
+                            <img src="https://p26-flow-imagex-sign.byteimg.com/tos-cn-i-a9rns2rl98/rc/pc/super_tool/a8bf98d2988b4f67bdeddf54a547a28d~tplv-a9rns2rl98-image.image?lk3s=8e244e95&rcl=20260527142428418F3B2EA4AC28878282&rrcfp=f06b921b&x-expires=1782455144&x-signature=XvIL0hI%2FD5pgsBkzOZSadnKitwc%3D" alt="月亮" class="w-full h-full object-contain float-animation">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 关于部分 -->
+        <section id="about" class="container mx-auto px-4 mb-20">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl font-light text-gray-800 mb-4">关于《给自己留点空》</h2>
+                <div class="w-20 h-1 bg-gray-300 mx-auto"></div>
+            </div>
+            <div class="max-w-3xl mx-auto">
+                <p class="text-lg text-gray-600 mb-6 leading-relaxed">
+                    《给自己留点空》是一本关于自我治愈、内心探索的书籍，也是一个陪伴你成长的数字空间。
+                    我们相信，在忙碌的生活中，给自己一点空间，是对心灵最好的滋养。
+                </p>
+                <p class="text-lg text-gray-600 mb-6 leading-relaxed">
+                    这里提供情绪日记、AI树洞对话、每日静心打卡等功能，帮助你记录情绪、倾听内心、培养正念。
+                    让我们一起，在这个喧嚣的世界里，找到属于自己的宁静角落。
+                </p>
+            </div>
+        </section>
+
+        <!-- 功能介绍 -->
+        <section class="container mx-auto px-4 mb-20">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl font-light text-gray-800 mb-4">我们的功能</h2>
+                <div class="w-20 h-1 bg-gray-300 mx-auto"></div>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <!-- 情绪日记 -->
+                <div class="bg-white p-8 rounded-lg shadow-sm hover:shadow-md transition-shadow text-center">
+                    <img src="images/fd4d53b44ebb7b139de85978c62a275c.jpg" 
+                         alt="情绪日记" 
+                         class="w-24 h-24 mx-auto mb-6">
+                    <h3 class="text-xl font-medium text-gray-800 mb-3">情绪日记</h3>
+                    <p class="text-gray-600">
+                        记录每日情绪，探索内心世界，让情绪有处可诉，有迹可循。
+                    </p>
+                    <a href="diary.html" class="inline-block mt-6 text-gray-800 hover:text-gray-600 transition-colors">
+                        开始记录 →
+                    </a>
+                </div>
+                <!-- AI树洞 -->
+                <div class="bg-white p-8 rounded-lg shadow-sm hover:shadow-md transition-shadow text-center">
+                    <img src="images/6f3c0c81f63c3907c5d96434e6ece2de.jpg" 
+                         alt="AI树洞" 
+                         class="w-24 h-24 mx-auto mb-6">
+                    <h3 class="text-xl font-medium text-gray-800 mb-3">AI树洞</h3>
+                    <p class="text-gray-600">
+                        温柔倾听，共情疏导，你的心事有人懂，你的情绪有处安放。
+                    </p>
+                    <a href="treehole.html" class="inline-block mt-6 text-gray-800 hover:text-gray-600 transition-colors">
+                        开始对话 →
+                    </a>
+                </div>
+                <!-- 留白打卡 -->
+                <div class="bg-white p-8 rounded-lg shadow-sm hover:shadow-md transition-shadow text-center">
+                    <img src="images/953b5ea753b4aa9cd881cc59aa98fb85.jpg"
+                         class="w-24 h-24 mx-auto mb-6">
+                    <h3 class="text-xl font-medium text-gray-800 mb-3">留白打卡</h3>
+                    <p class="text-gray-600">
+                        每日静心打卡，培养正念习惯，让内心的宁静成为日常。
+                    </p>
+                    <a href="checkin.html" class="inline-block mt-6 text-gray-800 hover:text-gray-600 transition-colors">
+                        开始打卡 →
+                    </a>
+                </div>
+                <!-- 书籍金句 -->
+                <div class="bg-white p-8 rounded-lg shadow-sm hover:shadow-md transition-shadow text-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-24 h-24 mx-auto mb-6 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+                    </svg>
+                    <h3 class="text-xl font-medium text-gray-800 mb-3">书籍金句</h3>
+                    <p class="text-gray-600">
+                        精选治愈金句，温暖你的心灵，给你前行的力量和勇气。
+                    </p>
+                    <a href="checkin.html#quotes" class="inline-block mt-6 text-gray-800 hover:text-gray-600 transition-colors">
+                        查看金句 →
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- 用户评价 -->
+        <section class="container mx-auto px-4 mb-20">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl font-light text-gray-800 mb-4">用户的声音</h2>
+                <div class="w-20 h-1 bg-gray-300 mx-auto"></div>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- 评价1 -->
+                <div class="bg-white p-8 rounded-lg shadow-sm">
+                    <div class="flex items-center mb-4">
+                        <div class="text-yellow-400 flex">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                            </svg>
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                            </svg>
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                            </svg>
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                            </svg>
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                            </svg>
+                        </div>
+                    </div>
+                    <p class="text-gray-600 italic mb-6">
+                        "每天在这里记录情绪，感觉内心越来越平静。AI树洞的回应总是那么温暖，让我觉得自己并不孤单。"
+                    </p>
+                    <div class="flex items-center">
+                        <div class="w-10 h-10 bg-gray-200 rounded-full flex items-center justify-center">
+                            <span class="text-gray-600 font-medium">L</span>
+                        </div>
+                        <div class="ml-3">
+                            <h4 class="text-gray-800 font-medium">林小姐</h4>
+                            <p class="text-gray-500 text-sm">使用3个月</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- 评价2 -->
+                <div class="bg-white p-8 rounded-lg shadow-sm">
+                    <div class="flex items-center mb-4">
+                        <div class="text-yellow-400 flex">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                            </svg>
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                            </svg>
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                            </svg>
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                            </svg>
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                            </svg>
+                        </div>
+                    </div>
+                    <p class="text-gray-600 italic mb-6">
+                        "留白打卡功能让我养成了每日静心的习惯，书籍金句也很有启发性。这个网站真的是我心灵的港湾。"
+                    </p>
+                    <div class="flex items-center">
+                        <div class="w-10 h-10 bg-gray-200 rounded-full flex items-center justify-center">
+                            <span class="text-gray-600 font-medium">W</span>
+                        </div>
+                        <div class="ml-3">
+                            <h4 class="text-gray-800 font-medium">王先生</h4>
+                            <p class="text-gray-500 text-sm">使用6个月</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- 评价3 -->
+                <div class="bg-white p-8 rounded-lg shadow-sm">
+                    <div class="flex items-center mb-4">
+                        <div class="text-yellow-400 flex">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                            </svg>
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                            </svg>
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                            </svg>
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                            </svg>
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                            </svg>
+                        </div>
+                    </div>
+                    <p class="text-gray-600 italic mb-6">
+                        "界面设计很舒服，功能也很实用。每天写日记、和AI树洞聊天，已经成为我生活中不可或缺的一部分。"
+                    </p>
+                    <div class="flex items-center">
+                        <div class="w-10 h-10 bg-gray-200 rounded-full flex items-center justify-center">
+                            <span class="text-gray-600 font-medium">Z</span>
+                        </div>
+                        <div class="ml-3">
+                            <h4 class="text-gray-800 font-medium">张女士</h4>
+                            <p class="text-gray-500 text-sm">使用1年</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 开始使用 -->
+        <section class="container mx-auto px-4 text-center">
+            <div class="bg-gray-50 p-12 rounded-lg">
+                <h2 class="text-3xl font-light text-gray-800 mb-6">开始你的治愈之旅</h2>
+                <p class="text-lg text-gray-600 mb-8 max-w-2xl mx-auto">
+                    给自己一点空间，让心灵得到滋养。加入我们，一起探索内心，寻找宁静。
+                </p>
+                <a href="diary.html" class="bg-gray-800 text-white px-10 py-4 rounded-full hover:bg-gray-700 transition-colors inline-block">
+                    立即开始
+                </a>
+            </div>
+        </section>
+    </main>
+
+    <!-- 页脚 -->
+    <footer class="bg-white py-12 border-t border-gray-100">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-6 md:mb-0">
+                    <h3 class="text-2xl font-light text-gray-700 mb-2">给自己留点空</h3>
+                    <p class="text-gray-500">找回内心的平静</p>
+                </div>
+                <div class="flex space-x-8">
+                    <a href="index.html" class="text-gray-500 hover:text-gray-800 transition-colors">首页</a>
+                    <a href="diary.html" class="text-gray-500 hover:text-gray-800 transition-colors">情绪日记</a>
+                    <a href="treehole.html" class="text-gray-500 hover:text-gray-800 transition-colors">AI树洞</a>
+                    <a href="checkin.html" class="text-gray-500 hover:text-gray-800 transition-colors">留白打卡</a>
+                    <a href="config.html" class="text-gray-500 hover:text-gray-800 transition-colors">AI配置</a>
+                </div>
+            </div>
+            <div class="border-t border-gray-100 mt-8 pt-8 text-center">
+                <p class="text-gray-500">&copy; 2025 给自己留点空. 保留所有权利.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // 移动端菜单
+        document.getElementById('mobile-menu-button').addEventListener('click', function() {
+            const mobileMenu = document.getElementById('mobile-menu');
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // 平滑滚动
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
